@@ -7,14 +7,35 @@ export class ItemService
     }
 
     DisplayImage(callback) {
-    var img = document.createElement("img");
-        img.src = callback.val().imageUrl;
-        img.classList.add('displayed-image');
-        img.id = callback.key;
-        img.addEventListener("click", () => this.RemoveItem(callback.key));
-        var src = document.getElementById("object");
-        src.appendChild(img);
+        var object = callback.val();
+        var key = callback.key;
+
+        var containerElem = document.createElement('div');
+        containerElem.id = key;
+        containerElem.className = "container";
+
+        var imgElem = document.createElement('img');
+        imgElem.src = object.imageUrl;
+        imgElem.title = imgElem.alt = object.label;
+        imgElem.className = "displayed-image";
+
+        var middleElem = document.createElement('div');
+        middleElem.className = "middle";
+
+        var displayTextElem = document.createElement('div');
+        displayTextElem.innerHTML = "Delete";
+        displayTextElem.className = "text";
+        displayTextElem.addEventListener("click", () => this.RemoveItem(key), false);
+
+        middleElem.appendChild(displayTextElem);
+        containerElem.appendChild(imgElem);
+        containerElem.appendChild(middleElem);
+        
+        var list = document.getElementById("object");
+        list.appendChild(containerElem);
     }
+
+
 
     AddItem(event) {
         var label = document.getElementById("new-label").value;
@@ -22,17 +43,26 @@ export class ItemService
         var cost = document.getElementById("new-cost").value;
         var newItem = new  Item(label, cost, imageUrl);
         this.ref.push(newItem);
+        this.ResetField();
     }
 
     RemoveItem(key) {
-        console.log("displayed-image-click"); 
+        console.log("displayed-image-click", key); 
         this.ref.child(key).remove().then(function() {
             document.getElementById(key).remove();
             console.log("deleted"); 
         });
     }
 
-    Init() {
+    ResetField()
+    {
+        document.getElementById("new-label").value = "";
+        document.getElementById("new-url-image").value = "";
+        document.getElementById("new-cost").value = "";
+        document.getElementById("dynamic-image").src = "//:0";
+    }
+
+    static Init() {
         //display
         this.ref.orderByChild("Cout").on('child_added', (callback) => this.DisplayImage(callback));
         //add

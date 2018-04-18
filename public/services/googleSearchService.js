@@ -9,9 +9,15 @@ class GoogleSearchService {
       })
       .then(function (data) {
         console.log(data);
-        var url = data.results[0].richSnippet.cseImage.src;
-        document.getElementById("dynamic-image").src = url;
-        document.getElementById("new-url-image").value = url;
+        try{
+          var url = data.results[0].richSnippet.cseImage.src;
+          document.getElementById("dynamic-image").src = url;
+          document.getElementById("new-url-image").value = url;
+        }
+        catch(error) {
+          document.getElementById("dynamic-image").src = "//:0";
+          document.getElementById("new-url-image").value = "";
+        }
       });
     }
   }

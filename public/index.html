@@ -11,46 +11,43 @@
     <script type="module" src="./models/item.js"></script>
     <script type="module" async defer src="./main.js"></script>
 	
-    <style media="screen">
-      .new-box { display:flex; flex-direction: column;}
-      .new-box-image { display:flex;align-items:center;align-content: center;align-items: center;flex: 1;flex-direction: column;}
-      .new-image { display:flex;width:200px;}
-      .new-container { display:flex; flex-direction: row;width:500px;justify-content: center;flex-wrap:wrap;margin:auto;}
-      .new-row { display:flex; flex-direction: row;align-items: baseline;align-self: stretch;justify-content:space-between;}
-      .new-item {display:flex;}
-      .new-display-container { display:flex; flex-direction: row;justify-content: center;flex-wrap:wrap;margin:auto;flex-grow: 1}
-      .displayed-image {display:flex;width:240px;height:350px;};
+    <link rel="stylesheet" type="text/css" href="main.css">
+      
     </style>
   </head>
   <body>
-
+    <h2>TCH-P01</h2>
     <div class="new-container">
       <div class="new-box">
-        <div class="new-row">
-          <div class="new-item">Label</div>
+          <div >
+            <label class="new-item">Collection</label> 
+            <select id="new-collection" name="collection">
+            </select>
+          </div>
+        <div >
+          <label class="new-item">Object Name</label>
           <div><input class="new-item" type='text' id='new-label'></div>
         </div>
-        <div class="new-row">
-          <span>Cost</span>
+        <div >
+          <label>Cost</label>
           <input type='text' id='new-cost'>
         </div>
-        <div class="new-row">
-          <span>Image</span>
+        <div >
+          <label>Image Url</label>
           <input type='text' id='new-url-image'>
         </div>
       </div>
       <div class="new-box-image">
-          <img src="toto" id="dynamic-image" class="new-image">
+          <img src="//:0" id="dynamic-image" class="new-image">
+      </div>
+      <div class="center-container">
+        <input type="button" class="new-button" id="new-button" value="Ajouter"></input>
       </div>
     </div>
 
-    <br>
-
-    <input type="button" class="new-container" id="new-button" value="Ajouter"></input>
-    <br>
     <div id="object" class="new-display-container"></div>
     <br>
-    <div id="branding"  style="float: left;"></div><br />
+    <div id="branding"  style="float: left;"></div>
 
   </body>
 </html>
