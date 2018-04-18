@@ -1,108 +1,56 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+    <title>TCH-P01</title>
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/4.12.1/firebase-app.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/4.12.1/firebase-auth.js"></script>
-    <script defer src="/__/firebase/4.12.1/firebase-database.js"></script>
-    <script defer src="/__/firebase/4.12.1/firebase-messaging.js"></script>
-    <script defer src="/__/firebase/4.12.1/firebase-storage.js"></script>
-    <!-- initialize the SDK after all desired features are loaded -->
-    <script defer src="/__/firebase/init.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
-	
+	  <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+    <script src="services\googleSearchService.js"></script>
+    <script type="module" src="./services/itemService.js"></script>
+    <script type="module" src="./models/item.js"></script>
+    <script type="module" async defer src="./main.js"></script>
 	
     <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
+      .new-box { display:flex; flex-direction: column;}
+      .new-box-image { display:flex;align-items:center;align-content: center;align-items: center;flex: 1;flex-direction: column;}
+      .new-image { display:flex;width:200px;}
+      .new-container { display:flex; flex-direction: row;width:500px;justify-content: center;flex-wrap:wrap;margin:auto;}
+      .new-row { display:flex; flex-direction: row;align-items: baseline;align-self: stretch;justify-content:space-between;}
+      .new-item {display:flex;}
+      .new-display-container { display:flex; flex-direction: row;justify-content: center;flex-wrap:wrap;margin:auto;flex-grow: 1}
+      .displayed-image {display:flex;width:240px;height:350px;};
     </style>
   </head>
   <body>
-    <div id="message">
-      <h2>Welcome Thomas</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+
+    <div class="new-container">
+      <div class="new-box">
+        <div class="new-row">
+          <div class="new-item">Label</div>
+          <div><input class="new-item" type='text' id='new-label'></div>
+        </div>
+        <div class="new-row">
+          <span>Cost</span>
+          <input type='text' id='new-cost'>
+        </div>
+        <div class="new-row">
+          <span>Image</span>
+          <input type='text' id='new-url-image'>
+        </div>
+      </div>
+      <div class="new-box-image">
+          <img src="toto" id="dynamic-image" class="new-image">
+      </div>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
 
-    <div id="object"></div>
+    <br>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-
-        try {
-          let app = firebase.app();
-          let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-          document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
-    </script>
-
-    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
-    <script>
-      // Initialize Firebase
-      var config = {
-      apiKey: "AIzaSyBJUn3GnQ3qxqjnUTvtmJRIpiuiFhCCZaw",
-      authDomain: "tch-p01.firebaseapp.com",
-      databaseURL: "https://tch-p01.firebaseio.com",
-      projectId: "tch-p01",
-      storageBucket: "tch-p01.appspot.com",
-      messagingSenderId: "505100188137"
-      };
-      firebase.initializeApp(config);
-      //var ref = firebase.database().ref("tch-p01");
-      //var query = ref.child("Collections").child("Thomas");
-      //console.log(query);
-      //var ref = new Firebase(config.databaseURL + "Collections");
-      //query.on('value', function(snap) {
-      //  console.log(snap);
-      //});
-
-      var ref = firebase.database().ref("Collections/Thomas/");
-      ref.on("value", function(res) {
-        console.log(res.key, res.val() );
-      })
-
-      ref.orderByChild("Cout").on('child_added', function(callback) {
-          console.log(callback.val());
-          var img = document.createElement("img");
-          img.src = callback.val().ImageUrl;
-          var src = document.getElementById("object");
-          src.appendChild(img);
-      });
-
-
-      //var ref2 = new Firebase(config.databaseURL + "Collections");
-      //var query2 = ref2.
-    </script>
+    <input type="button" class="new-container" id="new-button" value="Ajouter"></input>
+    <br>
+    <div id="object" class="new-display-container"></div>
+    <br>
+    <div id="branding"  style="float: left;"></div><br />
 
   </body>
 </html>
