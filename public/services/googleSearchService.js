@@ -1,5 +1,5 @@
 class GoogleSearchService {
-    static getImageUrl(queryValue){
+    static GetImageUrl(queryValue){
 
       //fetch('https://www.googleapis.com/customsearch/v1?q="' + queryValue + '"&cx=010405780277447613704:1hncv4q_5vg&key=AIzaSyCtwoZBifiQjNXrsdVI4W-UCFteFusdf1g&searchtype=image&alt=json')
       
@@ -8,8 +8,7 @@ class GoogleSearchService {
         return response.json();
       })
       .then(function (data) {
-        console.log(data);
-        try{
+        try {
           var url = data.results[0].richSnippet.cseImage.src;
           document.getElementById("dynamic-image").src = url;
           document.getElementById("new-url-image").value = url;

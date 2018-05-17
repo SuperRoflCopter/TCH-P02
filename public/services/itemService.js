@@ -37,7 +37,7 @@ export class ItemService
 
 
 
-    AddItem(event) {
+    AddItem() {
         var label = document.getElementById("new-label").value;
         var imageUrl = document.getElementById("new-url-image").value;
         var cost = document.getElementById("new-cost").value;
@@ -47,10 +47,8 @@ export class ItemService
     }
 
     RemoveItem(key) {
-        console.log("displayed-image-click", key); 
         this.ref.child(key).remove().then(function() {
             document.getElementById(key).remove();
-            console.log("deleted"); 
         });
     }
 
@@ -62,16 +60,26 @@ export class ItemService
         document.getElementById("dynamic-image").src = "//:0";
     }
 
-    static Init() {
+    Init() {
         //display
         this.ref.orderByChild("Cout").on('child_added', (callback) => this.DisplayImage(callback));
         //add
-        document.getElementById("new-button").addEventListener("click", event => this.AddItem(event), false);
+        document.getElementById("new-button").addEventListener("click", () => this.AddItem(), false);
         //preview image
-        document.getElementById("new-label").addEventListener("change", event => {
-            var queryValue = document.getElementById("new-label").value;
-            GoogleSearchService.getImageUrl(queryValue);
-        }, false);
+        document.getElementById("new-label").addEventListener("change", () => this.ChangeListener(), false);
+    }
+
+    Dispose() {
+        this.ref.orderByChild("Cout").off();
+        var el = document.getElementById('new-button'), elClone = el.cloneNode(true);
+        el.parentNode.replaceChild(elClone, el);
+        var el = document.getElementById('new-label'), elClone = el.cloneNode(true);
+        el.parentNode.replaceChild(elClone, el); 
+    }
+
+    ChangeListener() {
+        var queryValue = document.getElementById("new-label").value;
+        GoogleSearchService.GetImageUrl(queryValue);
     }
 }
       
